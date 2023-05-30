@@ -1,0 +1,7 @@
+{
+  "name": "minimal-hn",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
