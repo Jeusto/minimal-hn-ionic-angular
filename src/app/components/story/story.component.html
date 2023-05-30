@@ -1,0 +1,37 @@
+<ion-item *ngIf="story" [routerLink]="story.objectID" [detail]="false">
+  <div slot="start" [class]="'favicon'">
+    <ion-img src="http://google.com/favicon.ico" alt="google favicon"></ion-img>
+  </div>
+  <ion-label class="ion-text-wrap">
+    <h2>
+      {{ story.title }}
+    </h2>
+    <span class="date">
+      <ion-icon
+        aria-hidden="true"
+        name="chevron-forward"
+        size="small"
+        *ngIf="isIos()"
+      ></ion-icon>
+    </span>
+    <p>{{ domainName }}</p>
+    <div class="stats">
+      <div>
+        <ng-container *ngIf="story.points > 300; else arrowUp">
+          <ion-icon name="flame-outline"></ion-icon>
+        </ng-container>
+        <ng-template #arrowUp>
+          <ion-icon name="arrow-up"></ion-icon>
+        </ng-template>
+        {{ story.points }}
+      </div>
+      <div>
+        <ion-icon name="chatbox-outline"></ion-icon> {{ story.num_comments }}
+      </div>
+      <div>
+        <ion-icon name="time-outline"></ion-icon>
+        {{ timeAgo }} ago
+      </div>
+    </div>
+  </ion-label>
+</ion-item>

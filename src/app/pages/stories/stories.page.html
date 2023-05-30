@@ -1,0 +1,12 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Stories</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div *ngIf="stories$ | async as stories; else loading">
+    <story *ngFor="let story of stories" [story]="story"></story>
+  </div>
+  <ng-template #loading><centered-spinner></centered-spinner></ng-template>
+</ion-content>
