@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ApiResponse } from './api.model';
 
 @Injectable({
@@ -11,8 +11,8 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  getFrontPageStories(): Observable<ApiResponse> {
-    const url = `${this.baseUrl}/search?tags=front_page`;
+  getFrontPageStories(page: number): Observable<ApiResponse> {
+    const url = `${this.baseUrl}/search?tags=front_page&page=${page}`;
     return this.http.get<ApiResponse>(url);
   }
 
@@ -21,7 +21,7 @@ export class ApiService {
     return this.http.get<ApiResponse>(url);
   }
 
-  getStoryById(id: string): Observable<ApiResponse> {
+  getStoryDetails(id: string): Observable<ApiResponse> {
     const url = `${this.baseUrl}/search?tags=comment,story_${id}`;
     return this.http.get<ApiResponse>(url);
   }
