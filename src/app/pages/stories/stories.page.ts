@@ -1,23 +1,44 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { loadStories } from 'src/app/stores/stories/stories.actions';
-import { Story } from 'src/app/stores/stories/stories.model';
-import { selectStories } from 'src/app/stores/stories/stories.selectors';
+import { AppState } from 'src/app/stores/stories/stories.models';
+import { selectMainPageStories } from 'src/app/stores/stories/stories.selectors';
 
 @Component({
   selector: 'app-stories',
   templateUrl: 'stories.page.html',
-  styleUrls: ['stories.page.scss'],
 })
-export class StoriesPage {
-  // stories$ = this.store.select((state) => state.stories);
-  stories$!: Observable<Story[] | null>;
+export class StoriesPage implements OnInit {
+  mainPageStories$: Observable<Partial<AppState['stories']>> = new Observable();
+  currentPage: number = 0;
+  totalPages: number = 0;
+  canLoadMoreStories = true;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
-    this.store.dispatch(loadStories());
-    this.stories$ = this.store.select(selectStories);
+    this.store.dispatch(loadStories({ page: 0 }));
+    this.mainPageStories$ = this.store.select(selectMainPageStories);
+
+    this.mainPageStories$.subscribe(({ currentPage, totalPages }) => {
+      this.currentPage = currentPage || 0;
+      this.totalPages = totalPages || 0;
+      this.canLoadMoreStories = this.currentPage < this.totalPages;
+    });
+  }
+
+  handleInfiniteScroll(event: any) {
+    setTimeout(() => {
+      if (this.canLoadMoreStories) {
+        this.store.dispatch(loadStories({ page: this.currentPage + 1 }));
+      }
+
+      event.target.complete();
+    }, 500);
+  }
+
+  handleRefresh(event: any) {
+    event.target.complete();
   }
 }

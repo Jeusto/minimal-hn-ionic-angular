@@ -5,8 +5,22 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div *ngIf="stories$ | async as stories; else loading">
-    <story *ngFor="let story of stories" [story]="story"></story>
+  <div *ngIf="mainPageStories$ | async as stories">
+    <div *ngIf="stories.list && stories.list.length > 0; else loading">
+      <story *ngFor="let story of stories.list" [story]="story"></story>
+    </div>
   </div>
+
   <ng-template #loading><centered-spinner></centered-spinner></ng-template>
+
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-infinite-scroll
+    (ionInfinite)="handleInfiniteScroll($event)"
+    *ngIf="canLoadMoreStories"
+  >
+    <ion-infinite-scroll-content> </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

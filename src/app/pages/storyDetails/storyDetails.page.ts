@@ -11,8 +11,6 @@ import { selectSelectedStory } from 'src/app/stores/stories/stories.selectors';
   templateUrl: './storyDetails.page.html',
   styleUrls: ['./storyDetails.page.scss'],
 })
-
-// FIXME
 export class StoryPage {
   storyDetails$!: Observable<Partial<AppState['selectedStory']>>;
   storyId!: string;

@@ -3,14 +3,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
-import { StoriesEffects } from 'src/app/stores/stories/stories.effects';
-import { storyReducer } from 'src/app/stores/stories/stories.reducers';
 import { StoriesPageRoutingModule } from './stories-routing.module';
 import { StoriesPage } from './stories.page';
-import { StoryComponentModule } from 'src/app/components/story/story.module';
+import { StoryItemComponentModule } from 'src/app/components/storyItem/storyItem.module';
 import { SpinnerComponentModule } from 'src/app/components/spinner.module';
+import { StoryPage } from 'src/app/pages/storyDetails/storyDetails.page';
 
 @NgModule({
   imports: [
@@ -19,12 +16,9 @@ import { SpinnerComponentModule } from 'src/app/components/spinner.module';
     FormsModule,
     HttpClientModule,
     StoriesPageRoutingModule,
-    StoreModule.forFeature('stories', storyReducer),
-    EffectsModule.forFeature([StoriesEffects]),
-    StoreModule,
-    StoryComponentModule,
+    StoryItemComponentModule,
     SpinnerComponentModule,
   ],
-  declarations: [StoriesPage],
+  declarations: [StoriesPage, StoryPage],
 })
 export class StoriesPageModule {}
