@@ -3,11 +3,11 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
-import { StoryComponent } from './story.component';
+import { StoryItemComponent } from './storyItem.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, RouterModule],
-  declarations: [StoryComponent],
-  exports: [StoryComponent],
+  declarations: [StoryItemComponent],
+  exports: [StoryItemComponent],
 })
-export class StoryComponentModule {}
+export class StoryItemComponentModule {}

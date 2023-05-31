@@ -5,29 +5,33 @@ import {
   Input,
 } from '@angular/core';
 import { Platform } from '@ionic/angular';
-import { Story } from 'src/app/stores/stories/stories.model';
+import { Story } from 'src/app/stores/stories/stories.models';
 
 @Component({
   selector: 'story',
-  templateUrl: './story.component.html',
-  styleUrls: ['./story.component.scss'],
+  templateUrl: './storyItem.component.html',
+  styleUrls: ['./storyItem.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class StoryComponent {
+export class StoryItemComponent {
   @Input() story?: Story;
   private platform = inject(Platform);
+
   domainName: string | null = null;
   timeAgo: string | null = null;
-
-  constructor() {}
+  faviconUrl: string = `https://www.google.com/s2/favicons?domain=noFavicon`;
 
   ngOnInit() {
-    if (this.story) {
+    if (!this.story) return;
+
+    if (this.story.url) {
+      this.faviconUrl = `https://www.google.com/s2/favicons?domain=${this.story.url}`;
       this.domainName = this.story.url
         .replace(/^(?:https?:\/\/)?(?:www\.)?/i, '')
         .split('/')[0];
-      this.timeAgo = getTimeAgo(this.story.created_at);
     }
+
+    this.timeAgo = getTimeAgo(this.story.created_at);
   }
 
   isIos() {

@@ -1,11 +1,7 @@
 <ion-item *ngIf="story" [routerLink]="story.objectID" [detail]="false">
-  <div slot="start" [class]="'favicon'">
-    <ion-img src="http://google.com/favicon.ico" alt="google favicon"></ion-img>
-  </div>
+  <ion-img slot="start" class="favicon" src="{{ faviconUrl }}"></ion-img>
   <ion-label class="ion-text-wrap">
-    <h2>
-      {{ story.title }}
-    </h2>
+    <h3>{{ story.title }}</h3>
     <span class="date">
       <ion-icon
         aria-hidden="true"
