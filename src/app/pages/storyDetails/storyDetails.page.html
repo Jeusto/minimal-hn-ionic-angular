@@ -1,0 +1,22 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button title="Retour" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Story</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div *ngIf="storyDetails$ | async as story">
+    <div *ngIf="!story.loading; else loading">
+      <pre>{{ story | json }}</pre>
+    </div>
+  </div>
+
+  <ng-template #loading><centered-spinner></centered-spinner></ng-template>
+
+  <ion-infinite-scroll (ionInfinite)="handleInfiniteScroll($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
