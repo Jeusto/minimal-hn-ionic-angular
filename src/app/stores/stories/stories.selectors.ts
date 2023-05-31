@@ -1,20 +1,22 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { StoriesState } from './stories.reducers';
+import { AppState } from './stories.models';
 
-export const selectStoriesState =
-  createFeatureSelector<StoriesState>('stories');
-
-export const selectStories = createSelector(
+export const selectStoriesState = createFeatureSelector<AppState>('stories');
+export const selectMainPageStories = createSelector(
   selectStoriesState,
-  (state: StoriesState) => state.stories
+  (state: AppState) => state.stories
 );
 
-export const selectLoading = createSelector(
-  selectStoriesState,
-  (state: StoriesState) => state.loading
+export const selectSelectedStoryState =
+  createFeatureSelector<AppState>('stories');
+export const selectSelectedStory = createSelector(
+  selectSelectedStoryState,
+  (state: AppState) => state.selectedStory
 );
 
-export const selectError = createSelector(
-  selectStoriesState,
-  (state: StoriesState) => state.error
+export const selectSearchResultsState =
+  createFeatureSelector<AppState>('stories');
+export const selectSearchPageResults = createSelector(
+  selectSearchResultsState,
+  (state: AppState) => state.searchResults
 );
