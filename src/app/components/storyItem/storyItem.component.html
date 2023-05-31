@@ -1,4 +1,5 @@
-<ion-item *ngIf="story" [routerLink]="story.objectID" [detail]="false">
+<!-- TODO: Add [routerLink]="story.objectID" when storyDetails page is ready -->
+<ion-item *ngIf="story" button [detail]="false">
   <ion-img slot="start" class="favicon" src="{{ faviconUrl }}"></ion-img>
   <ion-label class="ion-text-wrap">
     <h3>{{ story.title }}</h3>

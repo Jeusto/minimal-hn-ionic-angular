@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { loadStories } from 'src/app/stores/stories/stories.actions';
 import { AppState } from 'src/app/stores/stories/stories.models';
 import { selectMainPageStories } from 'src/app/stores/stories/stories.selectors';
+import { BrowserService } from 'src/app/services/browser.service';
 
 @Component({
   selector: 'app-stories',
@@ -15,7 +16,10 @@ export class StoriesPage implements OnInit {
   totalPages: number = 0;
   canLoadMoreStories = true;
 
-  constructor(private store: Store<AppState>) {}
+  constructor(
+    private store: Store<AppState>,
+    private browserService: BrowserService
+  ) {}
 
   ngOnInit() {
     this.store.dispatch(loadStories({ page: 0 }));
@@ -26,6 +30,10 @@ export class StoriesPage implements OnInit {
       this.totalPages = totalPages || 0;
       this.canLoadMoreStories = this.currentPage < this.totalPages;
     });
+  }
+
+  openWebsite(url: string) {
+    if (url) this.browserService.openWebsite(url);
   }
 
   handleInfiniteScroll(event: any) {

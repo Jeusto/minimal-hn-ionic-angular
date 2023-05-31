@@ -7,7 +7,11 @@
 <ion-content [fullscreen]="true">
   <div *ngIf="mainPageStories$ | async as stories">
     <div *ngIf="stories.list && stories.list.length > 0; else loading">
-      <story *ngFor="let story of stories.list" [story]="story"></story>
+      <story
+        *ngFor="let story of stories.list"
+        [story]="story"
+        (click)="openWebsite(story.url)"
+      ></story>
     </div>
   </div>
 
