@@ -1,15 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { IonContent, ToastController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { BrowserService } from 'src/app/services/browser.service';
 import {
+  loadMoreStories,
   loadStories,
   updateStoriesCategory,
 } from 'src/app/stores/stories/stories.actions';
 import { AppState } from 'src/app/stores/stories/stories.models';
 import { selectMainPageStories } from 'src/app/stores/stories/stories.selectors';
-import { BrowserService } from 'src/app/services/browser.service';
-import { IonContent } from '@ionic/angular';
-import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-stories',
@@ -34,9 +34,7 @@ export class StoriesPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.store.dispatch(
-      loadStories({ page: 0, category: this.mainPageStories.category ?? 'top' })
-    );
+    this.store.dispatch(loadStories());
     this.mainPageStories$ = this.store.select(selectMainPageStories);
 
     this.mainPageStories$.subscribe((stories) => {
@@ -58,24 +56,15 @@ export class StoriesPage implements OnInit {
   }
 
   handleInfiniteScroll(event: any) {
-    let currentPage = this.mainPageStories.currentPage ?? 0;
-
     if (this.canLoadMoreStories) {
-      this.store.dispatch(
-        loadStories({
-          page: currentPage + 1,
-          category: this.mainPageStories.category ?? 'top',
-        })
-      );
+      this.store.dispatch(loadMoreStories());
     }
 
     event.target.complete();
   }
 
   handleRefresh(event: any) {
-    this.store.dispatch(
-      loadStories({ page: 0, category: this.mainPageStories.category ?? 'top' })
-    );
+    this.store.dispatch(loadStories());
     event.target.complete();
   }
 
@@ -110,6 +99,6 @@ export class StoriesPage implements OnInit {
     this.store.dispatch(
       updateStoriesCategory({ category: event.detail.value })
     );
-    this.store.dispatch(loadStories({ page: 0, category: event.detail.value }));
+    this.store.dispatch(loadStories());
   }
 }

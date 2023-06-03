@@ -1,10 +1,8 @@
 import { createAction, props } from '@ngrx/store';
 import type { Story, Category } from './stories.models';
 
-export const loadStories = createAction(
-  '[Stories] Load Stories',
-  props<{ page: number; category: Category }>()
-);
+export const loadStories = createAction('[Stories] Load Stories');
+export const loadMoreStories = createAction('[Stories] Load More Stories');
 export const loadStoriesSuccess = createAction(
   '[Stories] Load Stories Success',
   props<{ stories: Story[]; currentPage: number; totalPages: number }>()
