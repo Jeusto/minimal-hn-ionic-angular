@@ -2,14 +2,18 @@
   <ion-toolbar>
     <ion-title>
       <ion-select
-        aria-label="Fruit"
+        aria-label="Stories category"
         interface="popover"
+        justify="center"
         placeholder="Select category"
         [value]="mainPageStories.category"
         (ionChange)="handleCategoryChange($event)"
       >
-        <ion-select-option value="top">Top stories</ion-select-option>
+        <ion-select-option value="top"
+          >Top stories (front page)</ion-select-option
+        >
         <ion-select-option value="new">New stories</ion-select-option>
+        <ion-select-option value="best">Best of all time</ion-select-option>
       </ion-select>
     </ion-title>
   </ion-toolbar>
@@ -20,19 +24,15 @@
   [scrollEvents]="true"
   (ionScroll)="onScroll($event)"
 >
-  <div *ngIf="storiesAvailable; then data else loading"></div>
-
-  <ng-template #data>
+  <div>
     <story
       *ngFor="let story of mainPageStories.list"
       [story]="story"
       (click)="openWebsite(story.url)"
     ></story>
-  </ng-template>
+  </div>
 
-  <ng-template #loading>
-    <centered-spinner *ngIf="mainPageStories.loading"></centered-spinner>
-  </ng-template>
+  <centered-spinner *ngIf="mainPageStories.loading"></centered-spinner>
 
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>

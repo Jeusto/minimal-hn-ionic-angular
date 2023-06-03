@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonContent, ToastController } from '@ionic/angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonContent } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { BrowserService } from 'src/app/services/browser.service';
@@ -10,6 +10,7 @@ import {
 } from 'src/app/stores/stories/stories.actions';
 import { AppState } from 'src/app/stores/stories/stories.models';
 import { selectMainPageStories } from 'src/app/stores/stories/stories.selectors';
+import { ToastService } from './../../services/toast.service';
 
 @Component({
   selector: 'app-stories',
@@ -30,7 +31,7 @@ export class StoriesPage {
   constructor(
     private store: Store<AppState>,
     private browserService: BrowserService,
-    private toastController: ToastController
+    private toastService: ToastService
   ) {}
 
   ngOnInit() {
@@ -39,14 +40,14 @@ export class StoriesPage {
 
     this.mainPageStories$.subscribe((stories) => {
       this.mainPageStories = stories;
-      this.storiesAvailable = !!(stories.list && stories.list.length > 0);
+      this.storiesAvailable = !(stories.list && stories.list.length > 0);
 
       let currentPage = stories.currentPage ?? 0;
       let totalPages = stories.totalPages ?? 0;
       this.canLoadMoreStories = currentPage < totalPages;
 
       if (stories.error) {
-        this.showErrorToast(stories.error.statusText);
+        this.toastService.showToast(stories.error.statusText, 'danger');
       }
     });
   }
@@ -89,16 +90,6 @@ export class StoriesPage {
   }
 
   openWebsite(url: string) {
-    if (url) this.browserService.openWebsite(url);
-  }
-
-  async showErrorToast(message: string) {
-    const toast = await this.toastController.create({
-      message: 'Error: ' + message,
-      duration: 3000,
-      color: 'danger',
-      cssClass: 'toast',
-    });
-    toast.present();
+    this.browserService.openWebsite(url);
   }
 }

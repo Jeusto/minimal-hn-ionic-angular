@@ -24,7 +24,7 @@ export interface AppState {
   };
 }
 
-export type Category = 'top' | 'new';
+export type Category = 'top' | 'new' | 'best';
 
 export interface Story {
   created_at: string;

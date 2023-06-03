@@ -21,6 +21,9 @@ export class ApiService {
       case 'new':
         url = `${this.baseUrl}/search_by_date?tags=story&page=${page}`;
         break;
+      case 'best':
+        url = `${this.baseUrl}/search?page=${page}`;
+        break;
       default:
         url = `${this.baseUrl}/search?tags=front_page&page=${page}`;
         break;

@@ -8,6 +8,6 @@ export class BrowserService {
   constructor() {}
 
   openWebsite(url: string) {
-    Browser.open({ url });
+    if (url) Browser.open({ url });
   }
 }
