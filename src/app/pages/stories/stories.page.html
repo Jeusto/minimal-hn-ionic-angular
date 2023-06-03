@@ -4,7 +4,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content
+  [fullscreen]="true"
+  [scrollEvents]="true"
+  (ionScroll)="onScroll($event)"
+>
   <div *ngIf="mainPageStories$ | async as stories">
     <div *ngIf="stories.list && stories.list.length > 0; else loading">
       <story
@@ -33,4 +37,13 @@
       No more stories, for now :)
     </ion-infinite-scroll-content>
   </ng-template>
+
+  <ion-fab
+    slot="fixed"
+    [class]="{'scrollTopButton': showScrollTopButton, 'hidden': !showScrollTopButton}"
+  >
+    <ion-fab-button (click)="scrollToTop()">
+      <ion-icon name="arrow-up"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
