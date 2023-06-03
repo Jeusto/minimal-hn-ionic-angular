@@ -37,13 +37,11 @@ export class StoriesPage implements OnInit {
   }
 
   handleInfiniteScroll(event: any) {
-    setTimeout(() => {
-      if (this.canLoadMoreStories) {
-        this.store.dispatch(loadStories({ page: this.currentPage + 1 }));
-      }
+    if (this.canLoadMoreStories) {
+      this.store.dispatch(loadStories({ page: this.currentPage + 1 }));
+    }
 
-      event.target.complete();
-    }, 500);
+    event.target.complete();
   }
 
   handleRefresh(event: any) {
