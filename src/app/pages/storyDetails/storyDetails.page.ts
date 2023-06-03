@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { AppState, Story } from 'src/app/stores/stories/stories.models';
+import { AppState } from 'src/app/models/appState.model';
 import { Observable } from 'rxjs';
 import { loadStoryDetails } from 'src/app/stores/stories/stories.actions';
 import { selectSelectedStory } from 'src/app/stores/stories/stories.selectors';

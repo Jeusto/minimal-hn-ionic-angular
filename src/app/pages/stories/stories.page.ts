@@ -8,7 +8,7 @@ import {
   loadStories,
   updateStoriesCategory,
 } from 'src/app/stores/stories/stories.actions';
-import { AppState } from 'src/app/stores/stories/stories.models';
+import { AppState } from 'src/app/models/appState.model';
 import { selectMainPageStories } from 'src/app/stores/stories/stories.selectors';
 import { ToastService } from './../../services/toast.service';
 

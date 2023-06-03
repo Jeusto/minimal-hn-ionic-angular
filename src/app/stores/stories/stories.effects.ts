@@ -5,7 +5,7 @@ import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 import { ApiService } from 'src/app/services/api.service';
 import * as StoriesActions from './stories.actions';
 import { Store, select } from '@ngrx/store';
-import { AppState } from './stories.models';
+import { AppState } from 'src/app/models/appState.model';
 import { selectMainPageStories } from './stories.selectors';
 
 @Injectable()

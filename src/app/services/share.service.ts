@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Share } from '@capacitor/share';
-import { Story } from '../stores/stories/stories.models';
+import { Story } from '../models/stories.model';
 
 @Injectable({
   providedIn: 'root',

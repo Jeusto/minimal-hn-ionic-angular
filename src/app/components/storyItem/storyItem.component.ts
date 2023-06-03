@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { ShareService } from 'src/app/services/share.service';
-import { Story } from 'src/app/stores/stories/stories.models';
+import { Story } from 'src/app/models/stories.model';
 
 @Component({
   selector: 'story',

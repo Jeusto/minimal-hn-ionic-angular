@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { AppState } from './stories.models';
+import { AppState } from 'src/app/models/appState.model';
 
 const selectStoriesState = createFeatureSelector<AppState>('stories');
 export const selectMainPageStories = createSelector(

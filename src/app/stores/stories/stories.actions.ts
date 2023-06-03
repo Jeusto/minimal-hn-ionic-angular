@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import type { Story, Category } from './stories.models';
+import type { Story, Category } from '../../models/stories.model';
 
 export const loadStories = createAction('[Stories] Load Stories');
 export const loadMoreStories = createAction('[Stories] Load More Stories');

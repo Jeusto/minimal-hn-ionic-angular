@@ -1,31 +1,3 @@
-export interface AppState {
-  stories: {
-    category: Category;
-    list: Story[];
-    currentPage: number;
-    totalPages: number;
-    loading: boolean;
-    error: any | null;
-  };
-  selectedStory: {
-    story: Story | null;
-    comments: Comment[];
-    currentPage: number;
-    totalPages: number;
-    loading: boolean;
-    error: any | null;
-  };
-  searchResults: {
-    list: Story[];
-    currentPage: number;
-    totalPages: number;
-    loading: boolean;
-    error: any | null;
-  };
-}
-
-export type Category = 'top' | 'new' | 'best';
-
 export interface Story {
   created_at: string;
   title: string;
@@ -55,6 +27,8 @@ export interface Comment {
   text: string;
   author: string;
 }
+
+export type Category = 'top' | 'new' | 'best';
 
 interface Highlight {
   value: string;

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/stores/stories/stories.models';
+import { AppState } from 'src/app/models/appState.model';
 import { selectSearchPageResults } from 'src/app/stores/stories/stories.selectors';
 import { searchStories } from 'src/app/stores/stories/stories.actions';
 import { Observable } from 'rxjs';
