@@ -5,6 +5,7 @@ import {
   Input,
 } from '@angular/core';
 import { Platform } from '@ionic/angular';
+import { ShareService } from 'src/app/services/share.service';
 import { Story } from 'src/app/stores/stories/stories.models';
 
 @Component({
@@ -20,6 +21,8 @@ export class StoryItemComponent {
   domainName: string | null = null;
   timeAgo: string | null = null;
   faviconUrl: string = `https://www.google.com/s2/favicons?domain=noFavicon`;
+
+  constructor(private shareService: ShareService) {}
 
   ngOnInit() {
     if (!this.story) return;

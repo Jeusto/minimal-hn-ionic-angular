@@ -1,34 +1,50 @@
 <!-- TODO: Add [routerLink]="story.objectID" when storyDetails page is ready -->
-<ion-item *ngIf="story" button [detail]="false">
-  <ion-img slot="start" class="favicon" src="{{ faviconUrl }}"></ion-img>
-  <ion-label class="ion-text-wrap">
-    <h3>{{ story.title }}</h3>
-    <span class="date">
-      <ion-icon
-        aria-hidden="true"
-        name="chevron-forward"
-        size="small"
-        *ngIf="isIos()"
-      ></ion-icon>
-    </span>
-    <p>{{ domainName }}</p>
-    <div class="stats">
-      <div>
-        <ng-container *ngIf="story.points > 300; else arrowUp">
-          <ion-icon name="flame-outline"></ion-icon>
-        </ng-container>
-        <ng-template #arrowUp>
-          <ion-icon name="arrow-up"></ion-icon>
-        </ng-template>
-        {{ story.points }}
+<ion-item-sliding>
+  <ion-item *ngIf="story" button [detail]="false">
+    <ion-img slot="start" class="favicon" src="{{ faviconUrl }}"></ion-img>
+    <ion-label class="ion-text-wrap">
+      <h3>{{ story.title }}</h3>
+      <span class="date">
+        <ion-icon
+          aria-hidden="true"
+          name="chevron-forward"
+          size="small"
+          *ngIf="isIos()"
+        ></ion-icon>
+      </span>
+      <p>{{ domainName }}</p>
+      <div class="stats">
+        <div>
+          <ng-container *ngIf="story.points > 300; else arrowUp">
+            <ion-icon name="flame-outline"></ion-icon>
+          </ng-container>
+          <ng-template #arrowUp>
+            <ion-icon name="arrow-up"></ion-icon>
+          </ng-template>
+          {{ story.points }}
+        </div>
+        <div>
+          <ion-icon name="chatbox-outline"></ion-icon> {{ story.num_comments }}
+        </div>
+        <div>
+          <ion-icon name="time-outline"></ion-icon>
+          {{ timeAgo }} ago
+        </div>
       </div>
-      <div>
-        <ion-icon name="chatbox-outline"></ion-icon> {{ story.num_comments }}
-      </div>
-      <div>
-        <ion-icon name="time-outline"></ion-icon>
-        {{ timeAgo }} ago
-      </div>
-    </div>
-  </ion-label>
-</ion-item>
+    </ion-label>
+  </ion-item>
+
+  <ion-item-options>
+    <ion-item-option
+      *nfIf="this.shareService.deviceSupportsSharing()"
+      color="primary"
+    >
+      <ion-icon slot="icon-only" name="share-social-outline"></ion-icon>
+      Share
+    </ion-item-option>
+    <ion-item-option color="danger">
+      <ion-icon slot="icon-only" name="bookmark-outline"></ion-icon>
+      Save
+    </ion-item-option>
+  </ion-item-options>
+</ion-item-sliding>
