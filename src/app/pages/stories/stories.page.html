@@ -1,20 +1,16 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      <ion-list>
-        <ion-item>
-          <ion-select
-            aria-label="Fruit"
-            interface="popover"
-            placeholder="Select category"
-            [value]="mainPageStories.category"
-            (ionChange)="handleCategoryChange($event)"
-          >
-            <ion-select-option value="top">Top stories</ion-select-option>
-            <ion-select-option value="new">New stories</ion-select-option>
-          </ion-select>
-        </ion-item>
-      </ion-list>
+      <ion-select
+        aria-label="Fruit"
+        interface="popover"
+        placeholder="Select category"
+        [value]="mainPageStories.category"
+        (ionChange)="handleCategoryChange($event)"
+      >
+        <ion-select-option value="top">Top stories</ion-select-option>
+        <ion-select-option value="new">New stories</ion-select-option>
+      </ion-select>
     </ion-title>
   </ion-toolbar>
 </ion-header>

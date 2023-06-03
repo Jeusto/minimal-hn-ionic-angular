@@ -37,6 +37,7 @@ export class StoriesEffects {
     )
   );
 
+  // TODO: Refactor to avoid repetition
   loadMoreStories$ = createEffect(() =>
     this.actions$.pipe(
       ofType(StoriesActions.loadMoreStories),
