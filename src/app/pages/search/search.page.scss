@@ -1,3 +1,10 @@
+.searchTitleContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
 ion-searchbar {
   padding: 0px !important;
   padding-inline: 0px !important;
