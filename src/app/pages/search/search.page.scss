@@ -1,0 +1,12 @@
+ion-searchbar {
+  padding: 0px !important;
+  padding-inline: 0px !important;
+}
+
+.noResults {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5rem;
+}

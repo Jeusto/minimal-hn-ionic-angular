@@ -1,27 +1,31 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Search</ion-title>
+    <div class="searchTitleContainer" slot="start">
+      <ion-title>Search</ion-title>
+      <ion-spinner *ngIf="loading"></ion-spinner>
+    </div>
   </ion-toolbar>
+  <ion-searchbar
+    (ionInput)="handleInput($event)"
+    [autofocus]="true"
+    debounce="400"
+  ></ion-searchbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-searchbar
-    (ionInput)="handleInput($event)"
-    debounce="400"
-  ></ion-searchbar>
+  <div *ngIf="resultsAvailable">
+    <story
+      *ngFor="let story of searchResults.list"
+      [story]="story"
+      (click)="openWebsite(story.url)"
+    ></story>
+  </div>
+
   <div
-    style="
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      margin-top: 5rem;
-    "
+    *ngIf="searchResults && searchResults.list?.length === 0"
+    class="noResults"
   >
     <ion-icon name="search-outline" size="large"></ion-icon>
-    <p>Search for stories</p>
+    <p>No results corresponding to your search.</p>
   </div>
-  <pre>
-    {{ searchResults | json }}
-  </pre>
 </ion-content>

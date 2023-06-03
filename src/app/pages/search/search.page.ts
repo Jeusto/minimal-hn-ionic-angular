@@ -1,30 +1,41 @@
 import { Component } from '@angular/core';
-import { ToastController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/stores/stories/stories.models';
 import { selectSearchPageResults } from 'src/app/stores/stories/stories.selectors';
 import { searchStories } from 'src/app/stores/stories/stories.actions';
 import { Observable } from 'rxjs';
+import { BrowserService } from 'src/app/services/browser.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-search',
   templateUrl: 'search.page.html',
+  styleUrls: ['search.page.scss'],
 })
 export class SearchPage {
+  resultsAvailable = false;
+  loading = false;
   searchResults: Partial<AppState['searchResults']> = {};
   searchResults$: Observable<Partial<AppState['searchResults']>> =
     new Observable();
 
   constructor(
     private store: Store<AppState>,
-    private toastController: ToastController
+    private browserService: BrowserService,
+    private toastService: ToastService
   ) {}
 
   ngOnInit() {
     this.searchResults$ = this.store.select(selectSearchPageResults);
 
     this.searchResults$.subscribe((results) => {
+      this.loading = false;
       this.searchResults = results;
+      this.resultsAvailable = !!(results.list && results.list.length > 0);
+
+      if (results.error) {
+        this.toastService.showToast(results.error.statusText, 'danger');
+      }
     });
   }
 
@@ -32,7 +43,12 @@ export class SearchPage {
     let query = event.target.value;
 
     if (query) {
+      this.loading = true;
       this.store.dispatch(searchStories({ query }));
     }
+  }
+
+  openWebsite(url: string) {
+    this.browserService.openWebsite(url);
   }
 }
