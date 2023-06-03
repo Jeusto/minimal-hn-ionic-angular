@@ -9,17 +9,19 @@
   [scrollEvents]="true"
   (ionScroll)="onScroll($event)"
 >
-  <div *ngIf="mainPageStories$ | async as stories">
-    <div *ngIf="stories.list && stories.list.length > 0; else loading">
-      <story
-        *ngFor="let story of stories.list"
-        [story]="story"
-        (click)="openWebsite(story.url)"
-      ></story>
-    </div>
-  </div>
+  <div *ngIf="storiesAvailable; then data else loading"></div>
 
-  <ng-template #loading><centered-spinner></centered-spinner></ng-template>
+  <ng-template #data>
+    <story
+      *ngFor="let story of mainPageStories.list"
+      [story]="story"
+      (click)="openWebsite(story.url)"
+    ></story>
+  </ng-template>
+
+  <ng-template #loading>
+    <centered-spinner *ngIf="mainPageStories.loading"></centered-spinner>
+  </ng-template>
 
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
@@ -27,16 +29,10 @@
 
   <ion-infinite-scroll
     (ionInfinite)="handleInfiniteScroll($event)"
-    *ngIf="canLoadMoreStories; else noMoreStories"
+    *ngIf="canLoadMoreStories"
   >
-    <ion-infinite-scroll-content> </ion-infinite-scroll-content>
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
-
-  <ng-template #noMoreStories>
-    <ion-infinite-scroll-content>
-      No more stories, for now :)
-    </ion-infinite-scroll-content>
-  </ng-template>
 
   <ion-fab
     slot="fixed"

@@ -50,10 +50,12 @@ export const storiesReducer = createReducer(
       };
     }
   ),
-  on(StoriesActions.loadStoriesFailure, (state, { error }) => ({
-    ...state,
-    stories: { ...state.stories, loading: false, error },
-  })),
+  on(StoriesActions.loadStoriesFailure, (state, { error }) => {
+    return {
+      ...state,
+      stories: { ...state.stories, loading: false, error },
+    };
+  }),
   on(StoriesActions.loadStoryDetails, (state) => ({
     ...state,
     selectedStory: { ...state.selectedStory, loading: true, error: null },

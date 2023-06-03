@@ -4,7 +4,7 @@ export interface AppState {
     currentPage: number;
     totalPages: number;
     loading: boolean;
-    error: string | null;
+    error: any | null;
   };
   selectedStory: {
     story: Story | null;
@@ -12,14 +12,14 @@ export interface AppState {
     currentPage: number;
     totalPages: number;
     loading: boolean;
-    error: string | null;
+    error: any | null;
   };
   searchResults: {
     list: Story[];
     currentPage: number;
     totalPages: number;
     loading: boolean;
-    error: string | null;
+    error: any | null;
   };
 }
 
