@@ -24,4 +24,9 @@ export interface AppState {
     loading: boolean;
     error: any | null;
   };
+  bookmarks: {
+    list: Story[];
+    loading: boolean;
+    error: any | null;
+  };
 }

@@ -26,6 +26,11 @@ export const initialState: AppState = {
     loading: false,
     error: null,
   },
+  bookmarks: {
+    list: [],
+    loading: false,
+    error: null,
+  },
 };
 
 export const storiesReducer = createReducer(
