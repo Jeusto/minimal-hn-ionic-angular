@@ -23,8 +23,14 @@
 
   <ion-infinite-scroll
     (ionInfinite)="handleInfiniteScroll($event)"
-    *ngIf="canLoadMoreStories"
+    *ngIf="canLoadMoreStories; else noMoreStories"
   >
     <ion-infinite-scroll-content> </ion-infinite-scroll-content>
   </ion-infinite-scroll>
+
+  <ng-template #noMoreStories>
+    <ion-infinite-scroll-content>
+      No more stories, for now :)
+    </ion-infinite-scroll-content>
+  </ng-template>
 </ion-content>

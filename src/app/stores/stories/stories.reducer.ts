@@ -40,7 +40,8 @@ export const storiesReducer = createReducer(
         ...state,
         stories: {
           ...state.stories,
-          list: [...state.stories.list, ...stories],
+          list:
+            currentPage === 0 ? stories : [...state.stories.list, ...stories],
           currentPage,
           totalPages,
           loading: false,

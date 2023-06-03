@@ -45,6 +45,7 @@ export class StoriesPage implements OnInit {
   }
 
   handleRefresh(event: any) {
+    this.store.dispatch(loadStories({ page: 0 }));
     event.target.complete();
   }
 }
