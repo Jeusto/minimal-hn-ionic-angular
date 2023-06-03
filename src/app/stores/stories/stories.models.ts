@@ -1,5 +1,6 @@
 export interface AppState {
   stories: {
+    category: Category;
     list: Story[];
     currentPage: number;
     totalPages: number;
@@ -22,6 +23,8 @@ export interface AppState {
     error: any | null;
   };
 }
+
+export type Category = 'top' | 'new';
 
 export interface Story {
   created_at: string;
@@ -50,7 +53,7 @@ export interface Comment {
   id: string;
   parent_id: string;
   text: string;
-  authior: string;
+  author: string;
 }
 
 interface Highlight {

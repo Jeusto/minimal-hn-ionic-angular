@@ -4,6 +4,7 @@ import { AppState } from './stories.models';
 
 export const initialState: AppState = {
   stories: {
+    category: 'top',
     list: [],
     currentPage: 0,
     totalPages: 0,
@@ -56,6 +57,7 @@ export const storiesReducer = createReducer(
       stories: { ...state.stories, loading: false, error },
     };
   }),
+
   on(StoriesActions.loadStoryDetails, (state) => ({
     ...state,
     selectedStory: { ...state.selectedStory, loading: true, error: null },
@@ -73,6 +75,7 @@ export const storiesReducer = createReducer(
     ...state,
     selectedStory: { ...state.selectedStory, loading: false, error },
   })),
+
   on(StoriesActions.searchStories, (state) => ({
     ...state,
     searchResults: { ...state.searchResults, loading: true, error: null },
@@ -94,5 +97,10 @@ export const storiesReducer = createReducer(
   on(StoriesActions.searchStoriesFailure, (state, { error }) => ({
     ...state,
     searchResults: { ...state.searchResults, loading: false, error },
+  })),
+
+  on(StoriesActions.updateStoriesCategory, (state, { category }) => ({
+    ...state,
+    stories: { ...state.stories, category },
   }))
 );

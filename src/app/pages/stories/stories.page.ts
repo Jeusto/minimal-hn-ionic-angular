@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { loadStories } from 'src/app/stores/stories/stories.actions';
+import {
+  loadStories,
+  updateStoriesCategory,
+} from 'src/app/stores/stories/stories.actions';
 import { AppState } from 'src/app/stores/stories/stories.models';
 import { selectMainPageStories } from 'src/app/stores/stories/stories.selectors';
 import { BrowserService } from 'src/app/services/browser.service';
@@ -31,7 +34,9 @@ export class StoriesPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.store.dispatch(loadStories({ page: 0 }));
+    this.store.dispatch(
+      loadStories({ page: 0, category: this.mainPageStories.category ?? 'top' })
+    );
     this.mainPageStories$ = this.store.select(selectMainPageStories);
 
     this.mainPageStories$.subscribe((stories) => {
@@ -56,14 +61,21 @@ export class StoriesPage implements OnInit {
     let currentPage = this.mainPageStories.currentPage ?? 0;
 
     if (this.canLoadMoreStories) {
-      this.store.dispatch(loadStories({ page: currentPage + 1 }));
+      this.store.dispatch(
+        loadStories({
+          page: currentPage + 1,
+          category: this.mainPageStories.category ?? 'top',
+        })
+      );
     }
 
     event.target.complete();
   }
 
   handleRefresh(event: any) {
-    this.store.dispatch(loadStories({ page: 0 }));
+    this.store.dispatch(
+      loadStories({ page: 0, category: this.mainPageStories.category ?? 'top' })
+    );
     event.target.complete();
   }
 
@@ -92,5 +104,12 @@ export class StoriesPage implements OnInit {
       cssClass: 'toast',
     });
     toast.present();
+  }
+
+  handleCategoryChange(event: any) {
+    this.store.dispatch(
+      updateStoriesCategory({ category: event.detail.value })
+    );
+    this.store.dispatch(loadStories({ page: 0, category: event.detail.value }));
   }
 }

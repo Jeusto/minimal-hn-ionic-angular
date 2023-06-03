@@ -13,7 +13,7 @@ export class StoriesEffects {
     this.actions$.pipe(
       ofType(StoriesActions.loadStories),
       mergeMap((action) =>
-        this.apiService.getFrontPageStories(action.page).pipe(
+        this.apiService.getStories(action.page, action.category).pipe(
           map((response) =>
             StoriesActions.loadStoriesSuccess({
               stories: response.hits,

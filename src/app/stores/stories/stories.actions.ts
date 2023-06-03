@@ -1,9 +1,9 @@
 import { createAction, props } from '@ngrx/store';
-import { Story } from './stories.models';
+import type { Story, Category } from './stories.models';
 
 export const loadStories = createAction(
   '[Stories] Load Stories',
-  props<{ page: number }>()
+  props<{ page: number; category: Category }>()
 );
 export const loadStoriesSuccess = createAction(
   '[Stories] Load Stories Success',
@@ -38,4 +38,9 @@ export const searchStoriesSuccess = createAction(
 export const searchStoriesFailure = createAction(
   '[Stories] Search Stories Failure',
   props<{ error: string }>()
+);
+
+export const updateStoriesCategory = createAction(
+  '[Stories] Update Stories Category',
+  props<{ category: Category }>()
 );
