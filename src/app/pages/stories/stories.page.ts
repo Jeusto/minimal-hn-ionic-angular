@@ -16,7 +16,7 @@ import { selectMainPageStories } from 'src/app/stores/stories/stories.selectors'
   templateUrl: 'stories.page.html',
   styleUrls: ['stories.page.scss'],
 })
-export class StoriesPage implements OnInit {
+export class StoriesPage {
   @ViewChild(IonContent) content!: IonContent;
   mainPageStories$: Observable<Partial<AppState['stories']>> = new Observable();
   mainPageStories: Partial<AppState['stories']> = {};
@@ -51,10 +51,6 @@ export class StoriesPage implements OnInit {
     });
   }
 
-  openWebsite(url: string) {
-    if (url) this.browserService.openWebsite(url);
-  }
-
   handleInfiniteScroll(event: any) {
     if (this.canLoadMoreStories) {
       this.store.dispatch(loadMoreStories());
@@ -66,6 +62,13 @@ export class StoriesPage implements OnInit {
   handleRefresh(event: any) {
     this.store.dispatch(loadStories());
     event.target.complete();
+  }
+
+  handleCategoryChange(event: any) {
+    this.store.dispatch(
+      updateStoriesCategory({ category: event.detail.value })
+    );
+    this.store.dispatch(loadStories());
   }
 
   onScroll(event: any) {
@@ -85,6 +88,10 @@ export class StoriesPage implements OnInit {
     this.content.scrollToTop();
   }
 
+  openWebsite(url: string) {
+    if (url) this.browserService.openWebsite(url);
+  }
+
   async showErrorToast(message: string) {
     const toast = await this.toastController.create({
       message: 'Error: ' + message,
@@ -93,12 +100,5 @@ export class StoriesPage implements OnInit {
       cssClass: 'toast',
     });
     toast.present();
-  }
-
-  handleCategoryChange(event: any) {
-    this.store.dispatch(
-      updateStoriesCategory({ category: event.detail.value })
-    );
-    this.store.dispatch(loadStories());
   }
 }

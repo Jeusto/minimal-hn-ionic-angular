@@ -1,21 +1,27 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title> Search </ion-title>
+    <ion-title>Search</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-searchbar debounce="500"></ion-searchbar>
+  <ion-searchbar
+    (ionInput)="handleInput($event)"
+    debounce="400"
+  ></ion-searchbar>
   <div
     style="
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 80vh;
+      margin-top: 5rem;
     "
   >
     <ion-icon name="search-outline" size="large"></ion-icon>
     <p>Search for stories</p>
   </div>
+  <pre>
+    {{ searchResults | json }}
+  </pre>
 </ion-content>

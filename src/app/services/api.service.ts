@@ -34,7 +34,7 @@ export class ApiService {
     return this.http.get<ApiResponse>(url);
   }
 
-  searchStory(query: string): Observable<ApiResponse> {
+  searchStories(query: string): Observable<ApiResponse> {
     const url = `${this.baseUrl}/search?query=${query}&tags=story`;
     return this.http.get<ApiResponse>(url);
   }

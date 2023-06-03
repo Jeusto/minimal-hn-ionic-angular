@@ -76,4 +76,24 @@ export class StoriesEffects {
       )
     )
   );
+
+  searchStories$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(StoriesActions.searchStories),
+      mergeMap(({ query }) =>
+        this.apiService.searchStories(query).pipe(
+          map((response) =>
+            StoriesActions.searchStoriesSuccess({
+              stories: response.hits,
+              currentPage: response.page,
+              totalPages: response.nbPages,
+            })
+          ),
+          catchError((error) =>
+            of(StoriesActions.searchStoriesFailure({ error }))
+          )
+        )
+      )
+    )
+  );
 }
