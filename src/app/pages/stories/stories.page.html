@@ -25,11 +25,7 @@
   (ionScroll)="onScroll($event)"
 >
   <div>
-    <story
-      *ngFor="let story of mainPageStories.list"
-      [story]="story"
-      (click)="openWebsite(story.url)"
-    ></story>
+    <story *ngFor="let story of mainPageStories.list" [story]="story"></story>
   </div>
 
   <centered-spinner *ngIf="mainPageStories.loading"></centered-spinner>

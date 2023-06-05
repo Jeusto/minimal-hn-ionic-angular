@@ -2,13 +2,12 @@ import { Component, ViewChild } from '@angular/core';
 import { IonContent } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { BrowserService } from 'src/app/services/browser.service';
+import { AppState } from 'src/app/models/appState.model';
 import {
   loadMoreStories,
   loadStories,
   updateStoriesCategory,
 } from 'src/app/stores/stories/stories.actions';
-import { AppState } from 'src/app/models/appState.model';
 import { selectMainPageStories } from 'src/app/stores/stories/stories.selectors';
 import { ToastService } from './../../services/toast.service';
 
@@ -30,7 +29,6 @@ export class StoriesPage {
 
   constructor(
     private store: Store<AppState>,
-    private browserService: BrowserService,
     private toastService: ToastService
   ) {}
 
@@ -87,9 +85,5 @@ export class StoriesPage {
 
   scrollToTop() {
     this.content.scrollToTop();
-  }
-
-  openWebsite(url: string) {
-    this.browserService.openWebsite(url);
   }
 }

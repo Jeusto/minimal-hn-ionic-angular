@@ -11,7 +11,6 @@ export class ShareService {
   async share(story: Story) {
     await Share.share({
       title: story.title,
-      text: story.url,
       url: story.url,
     });
   }

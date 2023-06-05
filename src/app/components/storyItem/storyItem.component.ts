@@ -5,8 +5,9 @@ import {
   Input,
 } from '@angular/core';
 import { Platform } from '@ionic/angular';
-import { ShareService } from 'src/app/services/share.service';
 import { Story } from 'src/app/models/stories.model';
+import { BrowserService } from 'src/app/services/browser.service';
+import { ShareService } from 'src/app/services/share.service';
 
 @Component({
   selector: 'story',
@@ -22,10 +23,14 @@ export class StoryItemComponent {
   timeAgo: string | null = null;
   faviconUrl: string = `https://www.google.com/s2/favicons?domain=noFavicon`;
 
-  constructor(private shareService: ShareService) {}
+  constructor(
+    private shareService: ShareService,
+    private browserService: BrowserService
+  ) {}
 
   ngOnInit() {
     if (!this.story) return;
+    console.log(this.shareService.deviceSupportsSharing());
 
     if (this.story.url) {
       this.faviconUrl = `https://www.google.com/s2/favicons?domain=${this.story.url}`;
@@ -39,6 +44,15 @@ export class StoryItemComponent {
 
   isIos() {
     return this.platform.is('ios');
+  }
+
+  openWebsite(url: string) {
+    this.browserService.openWebsite(url);
+  }
+
+  async share() {
+    if (!this.story) return;
+    await this.shareService.share(this.story);
   }
 }
 
