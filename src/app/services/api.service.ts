@@ -8,7 +8,7 @@ import { Category } from '../models/stories.model';
   providedIn: 'root',
 })
 export class ApiService {
-  private baseUrl = 'http://hn.algolia.com/api/v1';
+  private baseUrl = 'https://hn.algolia.com/api/v1';
 
   constructor(private http: HttpClient) {}
 
