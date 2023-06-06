@@ -1,4 +1,4 @@
-<ion-item-sliding>
+<ion-item-sliding #slidingItem>
   <ion-item *ngIf="story" button [detail]="false">
     <ion-label [routerLink]="story?.objectID" class="ion-text-wrap leftPart">
       <h3>{{ story.title }}</h3>
@@ -33,11 +33,11 @@
     </div>
   </ion-item>
   <ion-item-options>
-    <ion-item-option color="primary" (click)="share()">
+    <ion-item-option (click)="share(); slidingItem.close()" color="primary">
       <ion-icon slot="icon-only" name="share-social-outline"></ion-icon>
       Share
     </ion-item-option>
-    <ion-item-option color="danger">
+    <ion-item-option (click)="save(); slidingItem.close()" color="danger">
       <ion-icon slot="icon-only" name="bookmark-outline"></ion-icon>
       Save
     </ion-item-option>

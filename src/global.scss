@@ -32,3 +32,16 @@ html {
 .hidden {
   opacity: 0;
 }
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  max-width: 15rem;
+  text-align: center;
+  margin: auto;
+  padding: 1rem;
+  gap: 1rem;
+}

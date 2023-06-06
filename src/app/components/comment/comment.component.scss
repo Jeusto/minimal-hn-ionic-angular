@@ -6,10 +6,9 @@ ion-label {
   color: var(--ion-text-color);
 }
 
-
 .comment {
   --comment-border-color: var(--ion-color-primary);
-  border-left: 1.5px solid var(--comment-border-color);
+  border-left: 2px solid var(--comment-border-color);
   margin-top: 1rem;
   padding-left: 1rem;
   padding-right: 1rem;

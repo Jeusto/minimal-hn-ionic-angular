@@ -35,3 +35,12 @@ ion-icon {
   position: relative;
   padding: 0.5rem 1rem;
 }
+
+.noComments {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+}

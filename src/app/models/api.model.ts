@@ -40,3 +40,7 @@ export interface ApiStoryDetails {
   children: ApiStoryDetails[];
   options: string[];
 }
+
+export interface ApiBookmarksResponse {
+  hits: Story[];
+}

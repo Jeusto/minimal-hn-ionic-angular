@@ -1,19 +1,15 @@
 import { Component, ViewChild } from '@angular/core';
-import {
-  InfiniteScrollCustomEvent,
-  IonContent,
-  ScrollCustomEvent,
-} from '@ionic/angular';
+import { InfiniteScrollCustomEvent, IonContent } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState } from 'src/app/models/appState.model';
+import { ToastService } from 'src/app/services/toast.service';
 import {
   loadMoreStories,
   loadStories,
   updateStoriesCategory,
 } from 'src/app/stores/stories/stories.actions';
 import { selectMainPageStories } from 'src/app/stores/stories/stories.selectors';
-import { ToastService } from './../../services/toast.service';
 
 @Component({
   selector: 'app-stories',
@@ -24,8 +20,6 @@ export class StoriesPage {
   @ViewChild(IonContent) content!: IonContent;
   mainPageStories$: Observable<Partial<AppState['stories']>> = new Observable();
   mainPageStories: Partial<AppState['stories']> = {};
-
-  storiesAvailable = false;
   canLoadMoreStories = false;
 
   showScrollTopButton = false;
@@ -43,7 +37,6 @@ export class StoriesPage {
 
     this.mainPageStories$.subscribe((stories) => {
       this.mainPageStories = stories;
-      this.storiesAvailable = !(stories.list && stories.list.length > 0);
       this.infiniteScrollEvent?.target.complete();
 
       let currentPage = stories.currentPage ?? 0;
