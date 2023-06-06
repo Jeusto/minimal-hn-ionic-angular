@@ -1,6 +1,6 @@
-import { ApiStoryDetails } from './../../models/api.model';
+import { ApiStoryDetails } from 'src/app/models';
 import { createAction, props } from '@ngrx/store';
-import type { Story, Category } from '../../models/stories.model';
+import type { Story, Category } from 'src/app/models';
 
 export const loadStories = createAction('[Stories] Load Stories');
 export const loadMoreStories = createAction('[Stories] Load More Stories');
@@ -42,4 +42,18 @@ export const searchStoriesFailure = createAction(
 export const updateStoriesCategory = createAction(
   '[Stories] Update Stories Category',
   props<{ category: Category }>()
+);
+
+export const loadBookmarks = createAction('[Stories] Load Bookmarks');
+export const toggleBookmark = createAction(
+  '[Stories] Add Bookmark',
+  props<{ storyId: string }>()
+);
+export const loadBookmarksSuccess = createAction(
+  '[Stories] Load Bookmarks Success',
+  props<{ bookmarks: Story[] }>()
+);
+export const loadBookmarksFailure = createAction(
+  '[Stories] Load Bookmarks Failure',
+  props<{ error: string }>()
 );

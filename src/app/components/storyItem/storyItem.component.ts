@@ -1,7 +1,11 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/models/appState.model';
 import { Story } from 'src/app/models/stories.model';
 import { BrowserService } from 'src/app/services/browser.service';
 import { ShareService } from 'src/app/services/share.service';
+import { StorageService } from 'src/app/services/storage.service';
+import { toggleBookmark } from 'src/app/stores/stories/stories.actions';
 import { getTimeAgo } from 'src/app/utils';
 
 @Component({
@@ -19,7 +23,9 @@ export class StoryItemComponent {
 
   constructor(
     private shareService: ShareService,
-    private browserService: BrowserService
+    private browserService: BrowserService,
+    private storageService: StorageService,
+    private store: Store<AppState>
   ) {}
 
   ngOnInit() {
@@ -36,12 +42,20 @@ export class StoryItemComponent {
   }
 
   openWebsite() {
-    if (this.story?.url) this.browserService.openWebsite(this.story.url);
+    if (this.story?.url) {
+      this.browserService.openWebsite(this.story.url);
+    }
   }
 
   async share() {
     if (this.story) {
       await this.shareService.share(this.story.title, this.story.url);
+    }
+  }
+
+  async save() {
+    if (this.story) {
+      this.store.dispatch(toggleBookmark({ storyId: this.story.objectID }));
     }
   }
 }

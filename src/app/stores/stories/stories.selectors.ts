@@ -18,3 +18,9 @@ export const selectSearchPageResults = createSelector(
   selectSearchResultsState,
   (state: AppState) => state.searchResults
 );
+
+const selectBookmarksState = createFeatureSelector<AppState>('stories');
+export const selectBookmarks = createSelector(
+  selectBookmarksState,
+  (state: AppState) => state.bookmarks
+);

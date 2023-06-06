@@ -24,27 +24,23 @@ export class StorageService {
     return await this._storage?.get(key);
   }
 
-  public async addBookmark(storyId: number) {
-    const bookmarks = await this.get('bookmarks');
+  public async toggleBookmark(storyId: string) {
+    const bookmarks: string[] = await this.getBookmarks();
 
-    if (bookmarks) {
-      bookmarks.push(storyId);
-      await this.set('bookmarks', bookmarks);
+    if (!bookmarks) return [];
+
+    if (bookmarks.includes(storyId)) {
+      const index = bookmarks.indexOf(storyId);
+      bookmarks.splice(index, 1);
     } else {
-      await this.set('bookmarks', [storyId]);
+      bookmarks.push(storyId);
     }
-  }
 
-  public async removeBookmark(storyId: number) {
-    const bookmarks = await this.get('bookmarks');
-
-    if (bookmarks) {
-      const updatedBookmarks = bookmarks.filter((id: number) => id !== storyId);
-      await this.set('bookmarks', updatedBookmarks);
-    }
+    await this.set('bookmarks', bookmarks);
+    return bookmarks;
   }
 
   public async getBookmarks() {
-    return await this.get('bookmarks');
+    return (await this.get('bookmarks')) || [];
   }
 }

@@ -17,12 +17,12 @@
       </div>
 
       <div class="buttons">
-        <div class="iconButton ion-activatable rippleParent">
+        <div (click)="share()" class="iconButton ion-activatable rippleParent">
           <ion-ripple-effect></ion-ripple-effect>
           <ion-icon name="share-social-outline"></ion-icon>
           <ion-text>Share</ion-text>
         </div>
-        <div class="iconButton ion-activatable rippleParent">
+        <div (click)="save()" class="iconButton ion-activatable rippleParent">
           <ion-ripple-effect></ion-ripple-effect>
           <ion-icon name="bookmark-outline"></ion-icon>
           <ion-text>Save</ion-text>
@@ -44,8 +44,16 @@
     </div>
 
     <nested-comments
+      *ngIf="storyDetails.story?.children?.length; else noComments"
       [comments]="storyDetails.story?.children || []"
     ></nested-comments>
+
+    <ng-template #noComments>
+      <div class="empty-state">
+        <ion-icon name="chatbox-outline" size="large"></ion-icon>
+        <ion-text>No comments yet.</ion-text>
+      </div>
+    </ng-template>
   </div>
 
   <ng-template #loading><centered-spinner></centered-spinner></ng-template>

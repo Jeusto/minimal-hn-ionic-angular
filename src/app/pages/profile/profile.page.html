@@ -1,13 +1,24 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title> Profile (coming soon)</ion-title>
+    <ion-title>Bookmarks</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Profile</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ng-container *ngIf="!bookmarks.loading; else loading">
+    <div *ngIf="bookmarks.list && bookmarks.list.length > 0">
+      <story *ngFor="let story of bookmarks.list" [story]="story"></story>
+    </div>
+    <div
+      *ngIf="bookmarks.list && bookmarks.list.length === 0"
+      class="empty-state"
+    >
+      <ion-icon name="bookmarks-outline" size="large"></ion-icon>
+      <ion-text>No bookmarks yet.</ion-text>
+    </div>
+  </ng-container>
+
+  <ng-template #loading>
+    <centered-spinner></centered-spinner>
+  </ng-template>
 </ion-content>

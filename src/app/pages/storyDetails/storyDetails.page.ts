@@ -3,7 +3,10 @@ import { Store } from '@ngrx/store';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { AppState } from 'src/app/models/appState.model';
 import { Observable } from 'rxjs';
-import { loadStoryDetails } from 'src/app/stores/stories/stories.actions';
+import {
+  loadStoryDetails,
+  toggleBookmark,
+} from 'src/app/stores/stories/stories.actions';
 import { selectSelectedStory } from 'src/app/stores/stories/stories.selectors';
 import { BrowserService } from 'src/app/services/browser.service';
 import { ShareService } from 'src/app/services/share.service';
@@ -53,5 +56,10 @@ export class StoryPage {
         this.storyDetails.story.url
       );
     }
+  }
+
+  async save() {
+    const storyId = this.storyDetails.story?.id.toString();
+    if (storyId) this.store.dispatch(toggleBookmark({ storyId }));
   }
 }

@@ -104,5 +104,18 @@ export const storiesReducer = createReducer(
   on(StoriesActions.updateStoriesCategory, (state, { category }) => ({
     ...state,
     stories: { ...state.stories, category },
+  })),
+
+  on(StoriesActions.loadBookmarks, (state) => ({
+    ...state,
+    bookmarks: { ...state.bookmarks, loading: true, error: null },
+  })),
+  on(StoriesActions.loadBookmarksSuccess, (state, { bookmarks }) => ({
+    ...state,
+    bookmarks: { ...state.bookmarks, list: bookmarks, loading: false },
+  })),
+  on(StoriesActions.loadBookmarksFailure, (state, { error }) => ({
+    ...state,
+    bookmarks: { ...state.bookmarks, loading: false, error },
   }))
 );

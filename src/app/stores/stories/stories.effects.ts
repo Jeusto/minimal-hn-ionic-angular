@@ -1,18 +1,26 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { of } from 'rxjs';
-import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
+import { from, of } from 'rxjs';
+import {
+  catchError,
+  map,
+  mergeMap,
+  switchMap,
+  withLatestFrom,
+} from 'rxjs/operators';
 import { ApiService } from 'src/app/services/api.service';
 import * as StoriesActions from './stories.actions';
 import { Store, select } from '@ngrx/store';
 import { AppState } from 'src/app/models/appState.model';
 import { selectMainPageStories } from './stories.selectors';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Injectable()
 export class StoriesEffects {
   constructor(
     private actions$: Actions,
     private apiService: ApiService,
+    private storageService: StorageService,
     private store: Store<AppState>
   ) {}
 
@@ -37,7 +45,6 @@ export class StoriesEffects {
     )
   );
 
-  // TODO: Refactor to avoid repetition
   loadMoreStories$ = createEffect(() =>
     this.actions$.pipe(
       ofType(StoriesActions.loadMoreStories),
@@ -94,6 +101,41 @@ export class StoriesEffects {
           )
         )
       )
+    )
+  );
+
+  toggleBookmark$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(StoriesActions.toggleBookmark),
+      switchMap(({ storyId }) => {
+        const addBookmarkPromise = this.storageService.toggleBookmark(storyId);
+        return from(addBookmarkPromise).pipe(
+          switchMap(() => of(StoriesActions.loadBookmarks()))
+        );
+      })
+    )
+  );
+
+  loadBookmarks$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(StoriesActions.loadBookmarks),
+      switchMap((_action) => {
+        const bookmarkIdsPromise = this.storageService.getBookmarks();
+        return from(bookmarkIdsPromise).pipe(
+          switchMap((bookmarksIdArray) =>
+            this.apiService.getListOfStories(bookmarksIdArray).pipe(
+              map((bookmarks) => {
+                return StoriesActions.loadBookmarksSuccess({
+                  bookmarks: bookmarks.hits,
+                });
+              }),
+              catchError((error) =>
+                of(StoriesActions.loadBookmarksFailure({ error }))
+              )
+            )
+          )
+        );
+      })
     )
   );
 }

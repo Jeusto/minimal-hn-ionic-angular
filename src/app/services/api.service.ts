@@ -1,7 +1,11 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { ApiSearchResponse, ApiStoryDetails } from '../models/api.model';
+import { Injectable } from '@angular/core';
+import { Observable, forkJoin, map, of } from 'rxjs';
+import {
+  ApiBookmarksResponse,
+  ApiSearchResponse,
+  ApiStoryDetails,
+} from '../models/api.model';
 import { Category } from '../models/stories.model';
 
 @Injectable({
@@ -37,8 +41,25 @@ export class ApiService {
     return this.http.get<ApiStoryDetails>(url);
   }
 
+  getStory(id: string) {
+    const url = `${this.baseUrl}/search?query=&tags=story,story_${id}`;
+    return this.http.get<ApiSearchResponse>(url);
+  }
+
   searchStories(query: string): Observable<ApiSearchResponse> {
     const url = `${this.baseUrl}/search?query=${query}&tags=story`;
     return this.http.get<ApiSearchResponse>(url);
+  }
+
+  getListOfStories(ids: string[]): Observable<ApiBookmarksResponse> {
+    if (ids.length === 0) return of({ hits: [] });
+
+    const requests = ids.map((id) => this.getStory(id));
+    return forkJoin(requests).pipe(
+      map((responses) => {
+        const stories = responses.map((response) => response.hits[0]);
+        return { hits: stories };
+      })
+    );
   }
 }
