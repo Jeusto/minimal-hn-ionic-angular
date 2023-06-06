@@ -1,3 +1,4 @@
+import { ApiStoryDetails } from './../../models/api.model';
 import { createAction, props } from '@ngrx/store';
 import type { Story, Category } from '../../models/stories.model';
 
@@ -18,7 +19,7 @@ export const loadStoryDetails = createAction(
 );
 export const loadStoryDetailsSuccess = createAction(
   '[Stories] Load Story Details Success',
-  props<{ story: Story }>()
+  props<{ story: ApiStoryDetails }>()
 );
 export const loadStoryDetailsFailure = createAction(
   '[Stories] Load Story Details Failure',

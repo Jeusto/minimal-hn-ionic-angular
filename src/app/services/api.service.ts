@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiResponse } from '../models/api.model';
+import { ApiSearchResponse, ApiStoryDetails } from '../models/api.model';
 import { Category } from '../models/stories.model';
 
 @Injectable({
@@ -12,7 +12,7 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  getStories(page: number, category: Category): Observable<ApiResponse> {
+  getStories(page: number, category: Category): Observable<ApiSearchResponse> {
     let url = '';
     switch (category) {
       case 'top':
@@ -29,16 +29,16 @@ export class ApiService {
         break;
     }
 
-    return this.http.get<ApiResponse>(url);
+    return this.http.get<ApiSearchResponse>(url);
   }
 
-  getStoryDetails(id: string): Observable<ApiResponse> {
-    const url = `${this.baseUrl}/search?tags=comment,story_${id}`;
-    return this.http.get<ApiResponse>(url);
+  getStoryDetails(id: string): Observable<ApiStoryDetails> {
+    const url = `${this.baseUrl}/items/${id}`;
+    return this.http.get<ApiStoryDetails>(url);
   }
 
-  searchStories(query: string): Observable<ApiResponse> {
+  searchStories(query: string): Observable<ApiSearchResponse> {
     const url = `${this.baseUrl}/search?query=${query}&tags=story`;
-    return this.http.get<ApiResponse>(url);
+    return this.http.get<ApiSearchResponse>(url);
   }
 }

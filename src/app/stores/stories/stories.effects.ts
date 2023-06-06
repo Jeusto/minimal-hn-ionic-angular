@@ -67,7 +67,7 @@ export class StoriesEffects {
       mergeMap(({ storyId: id }) =>
         this.apiService.getStoryDetails(id).pipe(
           map((response) =>
-            StoriesActions.loadStoryDetailsSuccess({ story: response.hits[0] })
+            StoriesActions.loadStoryDetailsSuccess({ story: response })
           ),
           catchError((error) =>
             of(StoriesActions.loadStoryDetailsFailure({ error }))

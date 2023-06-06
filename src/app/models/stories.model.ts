@@ -21,13 +21,6 @@ export interface Story {
   };
 }
 
-export interface Comment {
-  id: string;
-  parent_id: string;
-  text: string;
-  author: string;
-}
-
 export type Category = 'top' | 'new' | 'best';
 
 interface Highlight {

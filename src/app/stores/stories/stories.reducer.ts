@@ -13,9 +13,6 @@ export const initialState: AppState = {
   },
   selectedStory: {
     story: null,
-    comments: [],
-    currentPage: 0,
-    totalPages: 0,
     loading: false,
     error: null,
   },

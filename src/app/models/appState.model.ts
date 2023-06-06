@@ -1,3 +1,4 @@
+import { ApiStoryDetails } from './api.model';
 import { Category, Story } from './stories.model';
 
 export interface AppState {
@@ -10,10 +11,7 @@ export interface AppState {
     error: any | null;
   };
   selectedStory: {
-    story: Story | null;
-    comments: Comment[];
-    currentPage: number;
-    totalPages: number;
+    story: ApiStoryDetails | null;
     loading: boolean;
     error: any | null;
   };
