@@ -1,0 +1,37 @@
+ion-accordion {
+  --ion-padding: 0;
+}
+
+ion-label {
+  color: var(--ion-text-color);
+}
+
+
+.comment {
+  --comment-border-color: var(--ion-color-primary);
+  border-left: 1.5px solid var(--comment-border-color);
+  margin-top: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-size: 14px;
+}
+
+.commentInner>a {
+  pointer-events: all;
+}
+
+.parentComment {
+  cursor: pointer;
+}
+
+.comment .comment {
+  --comment-border-color: var(--ion-color-success);
+}
+
+.comment .comment .comment {
+  --comment-border-color: var(--ion-color-warning);
+}
+
+.comment .comment .comment .comment {
+  --comment-border-color: var(--ion-color-danger);
+}
