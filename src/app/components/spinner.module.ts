@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
@@ -14,7 +13,7 @@ import { IonicModule } from '@ionic/angular';
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      height: 50vh;
       "
     >
       <ion-spinner></ion-spinner>

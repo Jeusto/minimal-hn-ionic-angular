@@ -2,18 +2,19 @@
   <ion-toolbar>
     <div class="searchTitleContainer" slot="start">
       <ion-title>Search</ion-title>
-      <ion-spinner *ngIf="loading"></ion-spinner>
+      <ion-spinner *ngIf="searchResults.loading"></ion-spinner>
     </div>
   </ion-toolbar>
   <ion-searchbar
     (ionInput)="handleInput($event)"
+    (ionClear)="handleClear($event)"
     [autofocus]="true"
     debounce="400"
   ></ion-searchbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div *ngIf="resultsAvailable">
+  <div *ngIf="resultsAvailable; else noResults">
     <story
       *ngFor="let story of searchResults.list"
       [story]="story"
@@ -21,11 +22,10 @@
     ></story>
   </div>
 
-  <div
-    *ngIf="searchResults && searchResults.list?.length === 0"
-    class="noResults"
-  >
-    <ion-icon name="search-outline" size="large"></ion-icon>
-    <p>No results corresponding to your search.</p>
-  </div>
+  <ng-template #noResults>
+    <div class="noResults">
+      <ion-icon name="search-outline" size="large"></ion-icon>
+      <p>No results. Search for somethinge else!</p>
+    </div>
+  </ng-template>
 </ion-content>

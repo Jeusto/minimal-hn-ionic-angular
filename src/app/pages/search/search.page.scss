@@ -15,5 +15,11 @@ ion-searchbar {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 5rem;
+  margin: 1rem;
+  height: 50vh;
+  text-align: center;
+
+  p {
+    max-width: 15rem;
+  }
 }

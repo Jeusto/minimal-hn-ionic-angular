@@ -13,8 +13,7 @@ import { ToastService } from 'src/app/services/toast.service';
   styleUrls: ['search.page.scss'],
 })
 export class SearchPage {
-  resultsAvailable = false;
-  loading = false;
+  resultsAvailable = true;
   searchResults: Partial<AppState['searchResults']> = {};
   searchResults$: Observable<Partial<AppState['searchResults']>> =
     new Observable();
@@ -29,7 +28,6 @@ export class SearchPage {
     this.searchResults$ = this.store.select(selectSearchPageResults);
 
     this.searchResults$.subscribe((results) => {
-      this.loading = false;
       this.searchResults = results;
       this.resultsAvailable = !!(results.list && results.list.length > 0);
 
@@ -43,8 +41,17 @@ export class SearchPage {
     let query = event.target.value;
 
     if (query) {
-      this.loading = true;
       this.store.dispatch(searchStories({ query }));
+    } else {
+      this.resultsAvailable = false;
+    }
+  }
+
+  handleClear(event: any) {
+    this.resultsAvailable = false;
+
+    if (event.target.value) {
+      event.target.value = '';
     }
   }
 
