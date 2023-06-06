@@ -1,6 +1,5 @@
 # Minimal HN
 
-A crossplatform minimalistic [Hacker News](https://news.ycombinator.com/) reader (work in progress, not yet uploaded to the app store or player store)
+A crossplatform minimalistic [Hacker News](https://news.ycombinator.com/) reader that allows users to browse, search and save stories for later reading. (not yet published to app stores)
 
 ![preview image](preview.png)
-(wip preview image)
