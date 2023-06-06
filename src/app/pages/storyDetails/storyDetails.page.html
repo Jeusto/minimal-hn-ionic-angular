@@ -8,15 +8,45 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div *ngIf="storyDetails$ | async as story">
-    <div *ngIf="!story.loading; else loading">
-      <pre>{{ story | json }}</pre>
+  <div
+    *ngIf="storyDetails.story?.children && !storyDetails.loading; else loading"
+  >
+    <div class="storyDetails">
+      <div>
+        <h4>{{storyDetails.story?.title}}</h4>
+      </div>
+
+      <div class="buttons">
+        <div class="iconButton ion-activatable rippleParent">
+          <ion-ripple-effect></ion-ripple-effect>
+          <ion-icon name="share-social-outline"></ion-icon>
+          <ion-text>Share</ion-text>
+        </div>
+        <div class="iconButton ion-activatable rippleParent">
+          <ion-ripple-effect></ion-ripple-effect>
+          <ion-icon name="bookmark-outline"></ion-icon>
+          <ion-text>Save</ion-text>
+        </div>
+        <div
+          (click)="openWebsite()"
+          class="iconButton ion-activatable rippleParent"
+        >
+          <ion-ripple-effect></ion-ripple-effect>
+          <ion-icon name="globe-outline"></ion-icon>
+          <ion-text>Visit</ion-text>
+        </div>
+        <div class="iconButton ion-activatable rippleParent">
+          <ion-ripple-effect></ion-ripple-effect>
+          <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+          <ion-text>More</ion-text>
+        </div>
+      </div>
     </div>
+
+    <nested-comments
+      [comments]="storyDetails.story?.children || []"
+    ></nested-comments>
   </div>
 
   <ng-template #loading><centered-spinner></centered-spinner></ng-template>
-
-  <ion-infinite-scroll (ionInfinite)="handleInfiniteScroll($event)">
-    <ion-infinite-scroll-content></ion-infinite-scroll-content>
-  </ion-infinite-scroll>
 </ion-content>

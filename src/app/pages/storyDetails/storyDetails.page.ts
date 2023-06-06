@@ -5,6 +5,8 @@ import { AppState } from 'src/app/models/appState.model';
 import { Observable } from 'rxjs';
 import { loadStoryDetails } from 'src/app/stores/stories/stories.actions';
 import { selectSelectedStory } from 'src/app/stores/stories/stories.selectors';
+import { BrowserService } from 'src/app/services/browser.service';
+import { ShareService } from 'src/app/services/share.service';
 
 @Component({
   selector: 'app-view-message',
@@ -13,9 +15,16 @@ import { selectSelectedStory } from 'src/app/stores/stories/stories.selectors';
 })
 export class StoryPage {
   storyDetails$!: Observable<Partial<AppState['selectedStory']>>;
+  timeAgo: string | null = null;
+  storyDetails: Partial<AppState['selectedStory']> = {};
   storyId!: string;
 
-  constructor(private route: ActivatedRoute, private store: Store) {}
+  constructor(
+    private route: ActivatedRoute,
+    private store: Store,
+    private browserService: BrowserService,
+    private shareService: ShareService
+  ) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe((params: ParamMap) => {
@@ -24,7 +33,25 @@ export class StoryPage {
     });
 
     this.storyDetails$ = this.store.select(selectSelectedStory);
+
+    this.storyDetails$.subscribe((storyDetails) => {
+      this.storyDetails = storyDetails;
+    });
   }
 
-  handleInfiniteScroll(event: any) {}
+  test = 'test';
+
+  openWebsite() {
+    let url = this.storyDetails.story?.url;
+    if (url) this.browserService.openWebsite(url);
+  }
+
+  async share() {
+    if (this.storyDetails && this.storyDetails.story) {
+      await this.shareService.share(
+        this.storyDetails.story.title,
+        this.storyDetails.story.url
+      );
+    }
+  }
 }
