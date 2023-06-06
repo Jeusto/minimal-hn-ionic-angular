@@ -7,10 +7,10 @@ import { loadBookmarks } from 'src/app/stores/stories/stories.actions';
 import { selectBookmarks } from 'src/app/stores/stories/stories.selectors';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: 'profile.page.html',
+  selector: 'app-bookmarks',
+  templateUrl: 'bookmarks.page.html',
 })
-export class ProfilePage {
+export class BookmarksPage {
   bookmarks$: Observable<Partial<AppState['stories']>> = new Observable();
   bookmarks: Partial<AppState['stories']> = {};
 

@@ -13,9 +13,11 @@ const routes: Routes = [
       import('./pages/search/search.module').then((m) => m.SearchPageModule),
   },
   {
-    path: 'profile',
+    path: 'bookmarks',
     loadChildren: () =>
-      import('./pages/profile/profile.module').then((m) => m.ProfilePageModule),
+      import('./pages/bookmarks/bookmarks.module').then(
+        (m) => m.BookmarksPageModule
+      ),
   },
   {
     path: '**',

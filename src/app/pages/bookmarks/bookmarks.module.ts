@@ -2,8 +2,8 @@ import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ProfilePage } from './profile.page';
-import { ProfilePageRoutingModule } from './profile-routing.module';
+import { BookmarksPage } from './bookmarks.page';
+import { BookmarksPageRoutingModule } from './bookmarks-routing.module';
 import { StorageService } from 'src/app/services/storage.service';
 import { StoryItemComponentModule } from 'src/app/components/storyItem/storyItem.module';
 import { SpinnerComponentModule } from 'src/app/components/spinner.module';
@@ -13,11 +13,11 @@ import { SpinnerComponentModule } from 'src/app/components/spinner.module';
     IonicModule,
     CommonModule,
     FormsModule,
-    ProfilePageRoutingModule,
+    BookmarksPageRoutingModule,
     StoryItemComponentModule,
     SpinnerComponentModule,
   ],
-  declarations: [ProfilePage],
+  declarations: [BookmarksPage],
   providers: [StorageService],
 })
-export class ProfilePageModule {}
+export class BookmarksPageModule {}
