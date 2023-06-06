@@ -10,8 +10,8 @@
         (ionChange)="handleCategoryChange($event)"
       >
         <ion-select-option value="top"
-          >Top stories (front page)</ion-select-option
-        >
+          >Top stories (front page)
+        </ion-select-option>
         <ion-select-option value="new">New stories</ion-select-option>
         <ion-select-option value="best">Best of all time</ion-select-option>
       </ion-select>
@@ -24,29 +24,35 @@
   [scrollEvents]="true"
   (ionScroll)="onScroll($event)"
 >
-  <div>
-    <story *ngFor="let story of mainPageStories.list" [story]="story"></story>
+  <div
+    *ngIf="mainPageStories.list && mainPageStories.list.length > 0
+    && !mainPageStories.loading; else
+  loading"
+  >
+    <div>
+      <story *ngFor="let story of mainPageStories.list" [story]="story"></story>
+    </div>
+
+    <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <ion-infinite-scroll
+      (ionInfinite)="handleInfiniteScroll($event)"
+      *ngIf="canLoadMoreStories"
+    >
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+    <ion-fab
+      slot="fixed"
+      [class]="{'scrollTopButton': showScrollTopButton, 'hidden': !showScrollTopButton}"
+    >
+      <ion-fab-button (click)="scrollToTop()">
+        <ion-icon name="arrow-up"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
   </div>
 
-  <centered-spinner *ngIf="mainPageStories.loading"></centered-spinner>
-
-  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
-
-  <ion-infinite-scroll
-    (ionInfinite)="handleInfiniteScroll($event)"
-    *ngIf="canLoadMoreStories"
-  >
-    <ion-infinite-scroll-content></ion-infinite-scroll-content>
-  </ion-infinite-scroll>
-
-  <ion-fab
-    slot="fixed"
-    [class]="{'scrollTopButton': showScrollTopButton, 'hidden': !showScrollTopButton}"
-  >
-    <ion-fab-button (click)="scrollToTop()">
-      <ion-icon name="arrow-up"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+  <ng-template #loading><centered-spinner></centered-spinner></ng-template>
 </ion-content>

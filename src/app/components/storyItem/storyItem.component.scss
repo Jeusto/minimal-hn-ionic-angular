@@ -1,42 +1,12 @@
-ion-item {
-  --padding-start: 0;
-  --inner-padding-end: 0;
-}
-
-ion-label {
-  margin-top: 12px;
-  margin-bottom: 12px;
-}
-
-ion-item p {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-ion-item .date {
-  float: right;
-  align-items: center;
+.leftPart {
   display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
-ion-item ion-icon {
-  color: #c9c9ca;
-}
-
-ion-item ion-note {
-  font-size: 15px;
-  margin-right: 8px;
-  font-weight: normal;
-}
-
-ion-item ion-note.md {
-  margin-right: 14px;
-}
-
-ion-footer ion-title {
-  font-size: 11px;
-  font-weight: normal;
+.faviconContainer {
+  background-color: var(--ion-color-light);
+  border-radius: 0.25rem;
 }
 
 .favicon {

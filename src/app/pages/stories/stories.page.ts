@@ -1,5 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonContent } from '@ionic/angular';
+import {
+  InfiniteScrollCustomEvent,
+  IonContent,
+  ScrollCustomEvent,
+} from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState } from 'src/app/models/appState.model';
@@ -26,6 +30,7 @@ export class StoriesPage {
 
   showScrollTopButton = false;
   previousScrollPosition = 0;
+  infiniteScrollEvent: InfiniteScrollCustomEvent | undefined;
 
   constructor(
     private store: Store<AppState>,
@@ -39,6 +44,7 @@ export class StoriesPage {
     this.mainPageStories$.subscribe((stories) => {
       this.mainPageStories = stories;
       this.storiesAvailable = !(stories.list && stories.list.length > 0);
+      this.infiniteScrollEvent?.target.complete();
 
       let currentPage = stories.currentPage ?? 0;
       let totalPages = stories.totalPages ?? 0;
@@ -53,9 +59,10 @@ export class StoriesPage {
   handleInfiniteScroll(event: any) {
     if (this.canLoadMoreStories) {
       this.store.dispatch(loadMoreStories());
+      this.infiniteScrollEvent = event;
+    } else {
+      event.target.complete();
     }
-
-    event.target.complete();
   }
 
   handleRefresh(event: any) {

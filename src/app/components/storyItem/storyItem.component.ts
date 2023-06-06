@@ -1,13 +1,8 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  Input,
-} from '@angular/core';
-import { Platform } from '@ionic/angular';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Story } from 'src/app/models/stories.model';
 import { BrowserService } from 'src/app/services/browser.service';
 import { ShareService } from 'src/app/services/share.service';
+import { getTimeAgo } from 'src/app/utils';
 
 @Component({
   selector: 'story',
@@ -17,11 +12,10 @@ import { ShareService } from 'src/app/services/share.service';
 })
 export class StoryItemComponent {
   @Input() story?: Story;
-  private platform = inject(Platform);
 
   domainName: string | null = null;
   timeAgo: string | null = null;
-  faviconUrl: string = `https://www.google.com/s2/favicons?domain=noFavicon`;
+  faviconUrl: string | null = null;
 
   constructor(
     private shareService: ShareService,
@@ -30,7 +24,6 @@ export class StoryItemComponent {
 
   ngOnInit() {
     if (!this.story) return;
-    console.log(this.shareService.deviceSupportsSharing());
 
     if (this.story.url) {
       this.faviconUrl = `https://www.google.com/s2/favicons?domain=${this.story.url}`;
@@ -42,36 +35,13 @@ export class StoryItemComponent {
     this.timeAgo = getTimeAgo(this.story.created_at);
   }
 
-  isIos() {
-    return this.platform.is('ios');
-  }
-
-  openWebsite(url: string) {
-    this.browserService.openWebsite(url);
+  openWebsite() {
+    if (this.story?.url) this.browserService.openWebsite(this.story.url);
   }
 
   async share() {
-    if (!this.story) return;
-    await this.shareService.share(this.story);
-  }
-}
-
-function getTimeAgo(dateString: string): string {
-  const date = new Date(dateString);
-  const now = new Date();
-
-  const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
-  const minutes = Math.floor(seconds / 60);
-  const hours = Math.floor(minutes / 60);
-  const days = Math.floor(hours / 24);
-
-  if (seconds < 60) {
-    return `${seconds} sec`;
-  } else if (minutes < 60) {
-    return `${minutes} min`;
-  } else if (hours < 24) {
-    return `${hours} hrs`;
-  } else {
-    return `${days} days`;
+    if (this.story) {
+      await this.shareService.share(this.story.title, this.story.url);
+    }
   }
 }

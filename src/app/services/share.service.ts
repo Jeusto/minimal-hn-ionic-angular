@@ -8,10 +8,10 @@ import { Story } from '../models/stories.model';
 export class ShareService {
   constructor() {}
 
-  async share(story: Story) {
+  async share(title: string, url: string) {
     await Share.share({
-      title: story.title,
-      url: story.url,
+      title,
+      url,
     });
   }
 

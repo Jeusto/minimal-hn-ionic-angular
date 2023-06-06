@@ -1,22 +1,7 @@
-<!-- TODO: Add [routerLink]="story.objectID" when storyDetails page is ready -->
 <ion-item-sliding>
-  <ion-item
-    *ngIf="story"
-    button
-    [detail]="false"
-    (click)="openWebsite(story.url)"
-  >
-    <ion-img slot="start" class="favicon" src="{{ faviconUrl }}"></ion-img>
-    <ion-label class="ion-text-wrap">
+  <ion-item *ngIf="story" button [detail]="false">
+    <ion-label [routerLink]="story?.objectID" class="ion-text-wrap leftPart">
       <h3>{{ story.title }}</h3>
-      <span class="date">
-        <ion-icon
-          aria-hidden="true"
-          name="chevron-forward"
-          size="small"
-          *ngIf="isIos()"
-        ></ion-icon>
-      </span>
       <p>{{ domainName }}</p>
       <div class="stats">
         <div>
@@ -37,6 +22,15 @@
         </div>
       </div>
     </ion-label>
+    <div class="faviconContainer">
+      <ion-img
+        *ngIf="faviconUrl"
+        (click)="openWebsite()"
+        slot="end"
+        class="favicon"
+        src="{{ faviconUrl }}"
+      ></ion-img>
+    </div>
   </ion-item>
   <ion-item-options>
     <ion-item-option color="primary" (click)="share()">
