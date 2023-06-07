@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package com.jeusto.minimalhn;
 
 import com.getcapacitor.BridgeActivity;
 
