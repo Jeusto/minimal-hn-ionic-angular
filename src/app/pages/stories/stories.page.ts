@@ -84,6 +84,6 @@ export class StoriesPage {
   }
 
   scrollToTop() {
-    this.content.scrollToTop();
+    this.content.scrollToTop(300);
   }
 }

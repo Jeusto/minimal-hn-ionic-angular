@@ -1,6 +1,6 @@
 <ion-item-sliding #slidingItem>
   <ion-item *ngIf="story" button [detail]="false">
-    <ion-label [routerLink]="story?.objectID" class="ion-text-wrap leftPart">
+    <ion-label [routerLink]="story.objectID" class="ion-text-wrap leftPart">
       <h3>{{ story.title }}</h3>
       <p>{{ domainName }}</p>
       <div class="stats">
